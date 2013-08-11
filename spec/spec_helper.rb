@@ -1,7 +1,7 @@
 require 'rspec'
 require 'foodtaster'
 
-Foodtaster.init("druby://localhost:8787")
+Foodtaster.init
 
 RSpec.configure do |config|
   config.include Foodtaster::RSpec::ExampleMethods

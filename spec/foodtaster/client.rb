@@ -2,11 +2,11 @@ require 'drb'
 
 module Foodtaster
   class Client
-    def initialize(drb_url)
+    def initialize(drb_port)
       # start local service to be able to redirect stdout & stderr
       # to client
       DRb.start_service("druby://localhost:0")
-      @v = DRbObject.new_with_uri(drb_url)
+      @v = DRbObject.new_with_uri("druby://localhost:#{drb_port}")
 
       init
     end
