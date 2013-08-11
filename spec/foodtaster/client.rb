@@ -12,7 +12,7 @@ module Foodtaster
     end
 
     [:vm_defined?, :prepare_vm, :rollback_vm,
-     :run_chef_on_vm, :execute_on_vm].each do |method_name|
+     :run_chef_on_vm, :execute_command_on_vm].each do |method_name|
       define_method method_name do |*args|
         @v.send(method_name, *args)
       end
