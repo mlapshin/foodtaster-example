@@ -36,16 +36,16 @@ module Foodtaster
 
       def run_chef_on(vm_name, &block)
         Foodtaster::RSpec.require_vm(vm_name)
-        vm = Foodtaster::RSpec.get_vm(vm_name)
         skip_rollback = true
         chef_config = ChefConfig.new.tap{ |conf| block.call(conf) }.to_hash
 
         before(:all) do
+          vm = get_vm(vm_name)
           vm.rollback unless skip_rollback
           vm.run_chef(chef_config)
         end
 
-        let(vm_name) { vm }
+        let(vm_name) { get_vm(vm_name) }
       end
     end
 

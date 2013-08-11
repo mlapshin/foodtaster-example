@@ -44,3 +44,18 @@ module Foodtaster
     end
   end
 end
+
+# TODO: to separate file
+RSpec::configure do |config|
+  config.include Foodtaster::RSpec::ExampleMethods
+  config.extend Foodtaster::RSpec::DslMethods
+
+  config.before(:suite) do
+    Foodtaster.init
+    Foodtaster::RSpec.prepare_required_vms
+  end
+
+  config.after(:suite) do
+    Foodtaster.shutdown
+  end
+end
