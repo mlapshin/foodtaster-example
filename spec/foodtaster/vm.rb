@@ -18,9 +18,9 @@ module Foodtaster
 
     attr_reader :name
 
-    def initialize(name)
+    def initialize(name, client)
       @name = name
-      @client = Foodtaster.client
+      @client = client
 
       unless @client.vm_defined?(name)
         raise "No machine defined with name #{name}"
@@ -37,7 +37,6 @@ module Foodtaster
 
     def execute(command)
       exec_result_hash = @client.execute_command_on_vm(name, command)
-
       ExecResult.new(exec_result_hash)
     end
 
