@@ -53,8 +53,9 @@ module Foodtaster
 
     def start_server_and_connect_client(drb_port = Foodtaster.config.drb_port)
       vagrant_binary = Foodtaster.config.vagrant_binary
+      vagrant_server_cmd = "#{vagrant_binary} foodtaster-server #{drb_port.to_s} &> /tmp/vagrant-foodtaster-server-output.txt"
 
-      @server_pid = Process.spawn("#{vagrant_binary} foodtaster-server #{drb_port.to_s}", pgroup: true)
+      @server_pid = Process.spawn(vagrant_server_cmd, pgroup: true)
       Foodtaster.logger.debug "Started foodtaster-server on port #{drb_port} with PID #{@server_pid}"
 
       connect_client(drb_port)
@@ -72,8 +73,10 @@ module Foodtaster
       end
 
       if @client.nil?
+        server_output = File.read("/tmp/vagrant-foodtaster-server-output.txt")
+
         Foodtaster.logger.fatal "Cannot start or connect to Foodtaster DRb server."
-        Foodtaster.logger.fatal "Please run 'vagrant foodtaster-server' command manually and see it's output."
+        Foodtaster.logger.fatal "Server output:\n#{server_output}\n"
 
         exit 1
       else
