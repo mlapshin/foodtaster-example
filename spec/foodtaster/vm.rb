@@ -28,12 +28,12 @@ module Foodtaster
     end
 
     def prepare
-      Foodtaster.logger.info "Preparing VM '#{name}'"
+      Foodtaster.logger.info "#{name}: Preparing VM"
       @client.prepare_vm(name)
     end
 
     def rollback
-      Foodtaster.logger.info "Rollbacking VM '#{name}'"
+      Foodtaster.logger.info "#{name}: Rollbacking VM"
       @client.rollback_vm(name)
     end
 
@@ -49,7 +49,10 @@ module Foodtaster
     end
 
     def run_chef(config)
+      Foodtaster.logger.info "#{name}: Running Chef with Run List #{config[:run_list].join(', ')}"
+      Foodtaster.logger.debug "#{name}: with JSON: #{config[:json].inspect}"
       @client.run_chef_on_vm(name, config)
+      Foodtaster.logger.debug "#{name}: Chef Run finished"
     end
   end
 end

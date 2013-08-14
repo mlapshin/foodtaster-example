@@ -6,5 +6,5 @@ RSpec.configure do |config|
 end
 
 Foodtaster.configure do |config|
-  config.log_level = :debug
+  config.log_level = :info
 end

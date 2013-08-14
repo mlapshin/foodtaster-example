@@ -10,7 +10,9 @@ module Foodtaster
   class << self
     def logger
       @logger ||= Logger.new(STDOUT).tap do |log|
-        log.level = Logger.const_get(self.config.log_level.to_s.upcase)
+        log_level = ENV['FT_LOGLEVEL'] || self.config.log_level.to_s.upcase
+        log.level = Logger.const_get(log_level)
+
         log.formatter = proc do |severity, datetime, progname, msg|
           "[FT #{severity}]: #{msg}\n"
         end

@@ -1,7 +1,8 @@
 module Foodtaster
   class Config
-    attr_accessor :log_level
-    attr_accessor :drb_port
+    %w(log_level drb_port vagrant_binary).each do |attr|
+      attr_accessor attr.to_sym
+    end
 
     def initialize
       @log_level = :info
