@@ -23,11 +23,13 @@ module Foodtaster
     def start
       at_exit { self.stop }
 
+      Foodtaster.logger.debug "Starting Foodtaster specs run"
       start_server_and_connect_client
       prepare_required_vms
     end
 
     def stop
+      puts "" # newline after rspec output
       terminate_server
     end
 
@@ -49,11 +51,11 @@ module Foodtaster
       self.required_vm_names.each { |vm_name| get_vm(vm_name).prepare }
     end
 
-    def start_server_and_connect_client(drb_port=35672)
-      vagrant_binary = 'vagrant'
+    def start_server_and_connect_client(drb_port = Foodtaster.config.drb_port)
+      vagrant_binary = Foodtaster.config.vagrant_binary
 
-      # start vagrant server
       @server_pid = Process.spawn("#{vagrant_binary} foodtaster-server #{drb_port.to_s}", pgroup: true)
+      Foodtaster.logger.debug "Started foodtaster-server on port #{drb_port} with PID #{@server_pid}"
 
       connect_client(drb_port)
     end
@@ -63,15 +65,19 @@ module Foodtaster
       begin
         sleep 0.2
         @client = Foodtaster::Client.new(drb_port)
-      rescue DRb::DRbConnError
+      rescue DRb::DRbConnError => e
+        Foodtaster.logger.debug "DRb connection failed: #{e.message}"
         retry_count += 1
         retry if retry_count < 10
       end
 
       if @client.nil?
-        puts "Cannot start or connect to Foodtaster DRb server."
-        puts "Please run 'vagrant foodtaster-server' command manually and see it's output."
-        exit -1
+        Foodtaster.logger.fatal "Cannot start or connect to Foodtaster DRb server."
+        Foodtaster.logger.fatal "Please run 'vagrant foodtaster-server' command manually and see it's output."
+
+        exit 1
+      else
+        Foodtaster.logger.debug "DRb connection established"
       end
     end
 
@@ -79,10 +85,9 @@ module Foodtaster
       pgid = Process.getpgid(@server_pid) rescue 0
 
       if pgid > 0
-        puts "\n[FT] Stopping Foodtastic Server (PGID #{pgid})"
-
         Process.kill("INT", -pgid)
         Process.wait(-pgid)
+        Foodtaster.logger.debug "Terminated foodtaster-server process"
       end
     end
   end

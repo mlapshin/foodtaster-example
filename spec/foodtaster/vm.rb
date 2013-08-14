@@ -23,20 +23,28 @@ module Foodtaster
       @client = client
 
       unless @client.vm_defined?(name)
-        raise "No machine defined with name #{name}"
+        raise ArgumentError, "No machine defined with name #{name}"
       end
     end
 
     def prepare
+      Foodtaster.logger.info "Preparing VM '#{name}'"
       @client.prepare_vm(name)
     end
 
     def rollback
+      Foodtaster.logger.info "Rollbacking VM '#{name}'"
       @client.rollback_vm(name)
     end
 
     def execute(command)
+      Foodtaster.logger.debug "#{name}: Executing #{command}"
       exec_result_hash = @client.execute_command_on_vm(name, command)
+
+      Foodtaster.logger.debug "#{name}: Finished with #{exec_result_hash[:exit_status]}"
+      Foodtaster.logger.debug "#{name}: STDOUT: #{exec_result_hash[:stdout].chomp}"
+      Foodtaster.logger.debug "#{name}: STDERR: #{exec_result_hash[:stderr].chomp}"
+
       ExecResult.new(exec_result_hash)
     end
 
