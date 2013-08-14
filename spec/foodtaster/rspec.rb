@@ -5,6 +5,8 @@ module Foodtaster
   end
 end
 
+require 'foodtaster/rspec/config'
+
 # require all matchers
 Dir[File.dirname(__FILE__) + "/rspec/matchers/*.rb"].each do |f|
   require f
