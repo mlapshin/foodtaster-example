@@ -1,17 +1,28 @@
 require 'spec_helper'
 
-describe "example cookbook" do
-  run_chef_on :vm0 do |chef|
-    chef.json = {}
-    chef.add_recipe "example::default"
+describe "example::default" do
+  run_chef_on :vm0 do |c|
+    c.json = {}
+    c.add_recipe 'example::default'
   end
 
-  it "should create some file" do
-    vm0.should_not be_nil
-    vm0.execute("cat /tmp/example_file.txt").stdout.should == 'hello from example cookbook'
+  it "should install nginx as a daemon" do
+    vm0.should have_package 'nginx'
+    vm0.should have_user('www-data').in_group('www-data')
+
+    vm0.execute("sudo service nginx restart").should be_successful
+
+    vm0.should listen_port(80)
+    vm0.should open_page("http://localhost/")
+
+    vm0.should have_file("/etc/init.d/nginx")
+    vm0.should have_file("/etc/nginx/nginx.conf").with_content(/gzip on/)
   end
 
-  it "should create example user" do
-    vm0.should have_user("example_user").in_group("example_user")
+  it "should have valid nginx config" do
+    result = vm0.execute("nginx -t")
+
+    result.should be_successful
+    result.stderr.should include("/etc/nginx/nginx.conf syntax is ok")
   end
 end
