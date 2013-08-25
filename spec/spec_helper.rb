@@ -7,4 +7,6 @@ end
 
 Foodtaster.configure do |config|
   config.log_level = :info
+  config.shutdown_vms = false
+  config.skip_rollback = !ENV["SKIP_ROLLBACK"].nil?
 end

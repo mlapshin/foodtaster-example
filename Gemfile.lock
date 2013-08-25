@@ -1,12 +1,9 @@
-PATH
-  remote: ~/work/foodtaster
-  specs:
-    foodtaster (0.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.4)
+    foodtaster (0.0.1)
+      rspec (>= 2.10.0)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -20,5 +17,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  foodtaster!
+  foodtaster
   rspec

@@ -25,4 +25,8 @@ describe "example::default" do
     result.should be_successful
     result.stderr.should include("/etc/nginx/nginx.conf syntax is ok")
   end
+
+  it "should successful run recipe second time" do
+    rerun_chef_on :vm0
+  end
 end
