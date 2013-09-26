@@ -6,7 +6,7 @@ RSpec.configure do |config|
 end
 
 Foodtaster.configure do |config|
-  config.log_level = :info
+  config.log_level = :debug
   config.shutdown_vms = false
   config.skip_rollback = !ENV["SKIP_ROLLBACK"].nil?
 end
