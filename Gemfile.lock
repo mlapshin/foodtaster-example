@@ -1,9 +1,14 @@
+GIT
+  remote: git://github.com/mlapshin/foodtaster.git
+  revision: 160a1eb7cff63760ded8887faa1e2d3603c08634
+  specs:
+    foodtaster (0.0.2)
+      rspec (>= 2.10.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.4)
-    foodtaster (0.0.1)
-      rspec (>= 2.10.0)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -17,5 +22,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  foodtaster
+  foodtaster!
   rspec

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "example::default" do
   run_chef_on :vm0 do |c|
     c.json = {}
-    c.add_recipe 'example::default'
+    c.add_recipe 'nginx::default'
   end
 
   it "should install nginx as a daemon" do
