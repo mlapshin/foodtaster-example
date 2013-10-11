@@ -10,6 +10,7 @@ def define_vm(config, name, ip)
       vb.customize ["modifyvm", :id, "--memory", "256"]
     end
 
+    # chef-solo provider mus be specified
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = %w[site-cookbooks]
     end
@@ -17,6 +18,6 @@ def define_vm(config, name, ip)
 end
 
 Vagrant.configure("2") do |config|
-  define_vm(config, :vm0, "10.0.0.100")
-  define_vm(config, :vm1, "10.0.0.101")
+  define_vm(config, :vm0, "192.168.54.100")
+  define_vm(config, :vm1, "192.168.54.101")
 end

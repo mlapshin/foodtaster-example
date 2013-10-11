@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "example::default" do
+describe "nginx::default" do
   run_chef_on :vm0 do |c|
     c.json = {}
     c.add_recipe 'nginx::default'
@@ -26,7 +26,12 @@ describe "example::default" do
     result.stderr.should include("/etc/nginx/nginx.conf syntax is ok")
   end
 
+  it "should display welcome page" do
+    result = vm0.execute("wget http://localhost -O /tmp/index.html && cat /tmp/index.html")
+    result.stdout.should include("Welcome to nginx")
+  end
+
   it "should successful run recipe second time" do
-    rerun_chef_on :vm0
+    repeat_chef_run :vm0
   end
 end
