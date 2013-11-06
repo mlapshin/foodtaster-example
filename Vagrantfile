@@ -22,6 +22,6 @@ def define_vm(config, name, ip)
 end
 
 Vagrant.configure("2") do |config|
-  define_vm(config, :vm0, "10.0.3.2")
-  define_vm(config, :vm1, "10.0.3.3")
+  define_vm(config, :vm0, "10.0.4.2")
+  define_vm(config, :vm1, "10.0.4.3")
 end
