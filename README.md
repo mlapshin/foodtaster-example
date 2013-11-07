@@ -7,24 +7,26 @@ Chef cookbooks.
 Layout of this repository resembles layout of any other [Chef
 Repo](http://docs.opscode.com/essentials_repository.html), except for
 directories not required in this example, like `data_bags`, `environments`
-and `roles`.
+and `roles`. You can create them if you need.
 
-`cookbooks` directory contains community cookbooks declared in
+Directory `cookbooks` contains community cookbooks declared in
 Berksfile. `site-cookbooks` is a directory for your own cookbooks.
 
 ## Running specs
 
 Before running specs, you should install
-[Vagrant](http://vagrantup.com) and
+[Vagrant](http://vagrantup.com) with
 [vagrant-foodtaster-server](https://github.com/mlapshin/vagrant-foodtaster-server)
-Vagrant plugin.
+plugin. Follow official Vagrant installation instructions, and then
+invoke command:
 
-Clone this repository using git and 
+    vagrant plugin install vagrant-foodtaster-server
+
+Clone this repository using git:
 
     git clone https://github.com/mlapshin/foodtaster-example.git
 
-Next, invoke Bundler to install all required gems including
-Foodtaster:
+Next, invoke Bundler to install all required gems:
 
     cd foodtaster-example
     bundle install
