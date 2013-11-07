@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe "nginx::default" do
+describe "nginx_example::default" do
   run_chef_on :vm0 do |c|
     c.json = {}
-    c.add_recipe 'nginx::default'
+    c.add_recipe 'nginx_example::default'
   end
 
   it "should install nginx as a daemon" do
@@ -26,7 +26,7 @@ describe "nginx::default" do
     result.stderr.should include("/etc/nginx/nginx.conf syntax is ok")
   end
 
-  it "should display welcome page" do
+  it "should respond on http with welcome page" do
     result = vm0.execute("wget http://localhost -O /tmp/index.html && cat /tmp/index.html")
     result.stdout.should include("Welcome to nginx")
   end

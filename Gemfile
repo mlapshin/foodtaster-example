@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rspec'
-gem 'foodtaster'
-
+gem 'foodtaster', path: "~/w/foodtaster"
+gem 'berkshelf'
+gem 'mongo'

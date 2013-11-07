@@ -2,7 +2,7 @@ def define_vm(config, name, ip)
   config.vm.define name.to_sym do |config|
     config.vm.hostname = name.to_s.gsub('_','-')
     config.vm.box = "ubuntu1204"
-    config.vm.box_url = "http://redmine.hospital-systems.com/vagrant-boxes/ubuntu1204.box"
+    config.vm.box_url = "http://s3.amazonaws.com/hs-vagrant-boxes/ubuntu1204.box"
     config.vm.network :private_network, ip: ip
 
     config.vm.provider :virtualbox do |vb|

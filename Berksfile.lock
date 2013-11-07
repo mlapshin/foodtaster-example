@@ -1,0 +1,12 @@
+{
+  "sources": {
+    "nfs": {
+      "locked_version": "0.5.0",
+      "git": "https://github.com/atomic-penguin/cookbook-nfs.git",
+      "ref": "97d22b43b31ab7aa5b3d49139f213e9bbeb60235"
+    },
+    "line": {
+      "locked_version": "0.5.1"
+    }
+  }
+}
