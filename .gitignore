@@ -1,3 +1,4 @@
 .vagrant
 *.sw?
 cookbooks/*
+spec/test_spec.rb

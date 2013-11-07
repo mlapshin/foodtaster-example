@@ -14,7 +14,7 @@ describe 'nfs_example cookbook' do
 
   # vm1 is a client
   run_chef_on :vm1 do |c|
-    c.json = { nfs_server_ip: "10.0.4.2" }
+    c.json = { nfs_server_ip: vm0.ip }
     c.add_recipe "nfs_example::client"
   end
 
