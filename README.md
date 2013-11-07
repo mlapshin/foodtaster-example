@@ -36,6 +36,6 @@ Finally, invoke Berkshelf to install community cookbooks in
 
     berks install --path cookbooks
 
-Now you should be ready to run specs with:
+Now you should be able to run specs with:
 
     rspec spec
