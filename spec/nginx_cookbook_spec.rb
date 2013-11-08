@@ -15,11 +15,11 @@ describe "nginx_example::default" do
     # check if user www-data exist
     vm0.should have_user('www-data').in_group('www-data')
 
-    # check if port is open
-    vm0.should listen_port(80)
-
     # check if nginx process is running
     vm0.should have_running_process("nginx")
+
+    # check if port is open
+    vm0.should listen_port(80)
 
     # check if init.d service exist
     vm0.should have_file("/etc/init.d/nginx")
