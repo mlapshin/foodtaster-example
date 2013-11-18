@@ -38,7 +38,7 @@ describe 'nfs_example cookbook' do
 
     # create file on client and check if it will appear on server
     client.execute("echo #{token} > /nfs/test.txt").should be_successful
-    server.should have_file("/nfs/test.txt").with_content(token + "\n")
+    server.should have_file("/nfs/test.txt").with_content(token)
 
     # same, but when we delete a file
     server.execute("rm /nfs/test.txt")
