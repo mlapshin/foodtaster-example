@@ -11,6 +11,6 @@ end
 
 Foodtaster.configure do |config|
   config.drb_port = 33033
-  config.skip_rollback = !ENV["SKIP_ROLLBACK"].nil?
+  config.skip_rollback = !ENV["SKIPROLLBACK"].nil?
   config.vagrant_binary = "/opt/vagrant/bin/vagrant"
 end
